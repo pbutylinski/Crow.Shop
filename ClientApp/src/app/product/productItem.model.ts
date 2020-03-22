@@ -1,6 +1,6 @@
-interface Product {
+interface ProductItem {
     id: number;
     price: number;
     translations: ProductTranslation[];
-    images: ProductImage[];
+    image: ProductImage;
 }

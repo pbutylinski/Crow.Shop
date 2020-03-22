@@ -7,7 +7,7 @@ import { ProductService } from 'src/services/product.service';
   providers: [ProductService]
 })
 export class HomeComponent {
-  public products: Product[];
+  public products: ProductItem[];
 
   constructor(private productService: ProductService) {
     this.productService.getProducts().subscribe(data => {

@@ -13,7 +13,7 @@ export class ProductService {
         return this.http.get<Product>(this.baseUrl + 'api/product/' + id);
     }
 
-    public getProducts() : Observable<Product[]> {
-        return this.http.get<Product[]>(this.baseUrl + 'api/product');
+    public getProducts() : Observable<ProductItem[]> {
+        return this.http.get<ProductItem[]>(this.baseUrl + 'api/product');
     }
 }

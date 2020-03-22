@@ -16,5 +16,7 @@ namespace Crow.Shop.Models
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<ProductTranslation> Translations { get; set; }
+
+        public virtual ICollection<ProductImage> Images { get; set; }
     }
 }

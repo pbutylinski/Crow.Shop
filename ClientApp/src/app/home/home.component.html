@@ -2,10 +2,8 @@
   <mat-card *ngFor="let item of products" class="col-md-3 m-2">
     <mat-card-title>{{ item.translations | translation }}</mat-card-title>
 
-    <img mat-card-image src="https://zwierzetainformacje.pl/wp-content/uploads/2017/01/lemur-katta3-563x353.jpg">
+    <img mat-card-image *ngIf="item.image" [src]="item.image.fileName">
     
-    <mat-card-content>{{ item.translations | translation: "description" }}</mat-card-content>
-
     <mat-card-actions>
       <a mat-raised-button color="primary" [routerLink]="['/product', item.id]">View details</a>
     </mat-card-actions>

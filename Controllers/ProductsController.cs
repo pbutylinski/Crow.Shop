@@ -1,10 +1,9 @@
-﻿using Crow.Shop.Data;
-using Crow.Shop.Models;
+﻿using Crow.Shop.Models;
+using Crow.Shop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Crow.Shop.Controllers
@@ -13,29 +12,23 @@ namespace Crow.Shop.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductService productService;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(IProductService productService)
         {
-            _context = context;
+            this.productService = productService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductItem>>> GetProducts()
         {
-            return await _context.Products
-                .Where(x => !x.IsDeleted)
-                .Include(x => x.Translations)
-                .ToListAsync();
+            return await this.productService.GetAll();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products
-                .Include(x => x.Translations)
-                .Where(x => !x.IsDeleted)
-                .SingleOrDefaultAsync(x => x.Id == id);
+            var product = await this.productService.Get(id);
 
             if (product == null)
             {
@@ -54,15 +47,13 @@ namespace Crow.Shop.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await this.productService.Update(product);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!this.productService.CheckIfExists(id))
                 {
                     return NotFound();
                 }
@@ -79,9 +70,7 @@ namespace Crow.Shop.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-
+            await this.productService.Create(product);
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
 
@@ -89,23 +78,14 @@ namespace Crow.Shop.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            if (!this.productService.CheckIfExists(id))
             {
                 return NotFound();
             }
 
-            product.IsDeleted = true;
-            _context.Entry(product).State = EntityState.Modified;
+            await this.productService.Delete(id);
 
-            await _context.SaveChangesAsync();
-
-            return product;
-        }
-
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.Id == id);
+            return Ok();
         }
     }
 }
