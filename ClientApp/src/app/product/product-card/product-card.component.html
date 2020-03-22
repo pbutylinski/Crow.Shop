@@ -1,0 +1,9 @@
+<mat-card *ngIf="product">
+    <mat-card-title>{{ product.translations | translation }}</mat-card-title>
+
+    <img mat-card-image *ngIf="product.image" [src]="product.image.fileName">
+
+    <mat-card-actions>
+        <a mat-raised-button color="primary" [routerLink]="['/product', product.id]">View details</a>
+    </mat-card-actions>
+</mat-card>
