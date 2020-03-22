@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Crow.Shop.Models
 {
@@ -11,6 +12,7 @@ namespace Crow.Shop.Models
 
         public decimal Price { get; set; }
 
+        [JsonIgnore]
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<ProductTranslation> Translations { get; set; }

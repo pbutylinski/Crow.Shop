@@ -23,13 +23,19 @@ namespace Crow.Shop.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Where(x => !x.IsDeleted)
+                .Include(x => x.Translations)
+                .ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .Include(x => x.Translations)
+                .Where(x => !x.IsDeleted)
+                .SingleOrDefaultAsync(x => x.Id == id);
 
             if (product == null)
             {
@@ -69,7 +75,7 @@ namespace Crow.Shop.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
@@ -89,7 +95,9 @@ namespace Crow.Shop.Controllers
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            product.IsDeleted = true;
+            _context.Entry(product).State = EntityState.Modified;
+
             await _context.SaveChangesAsync();
 
             return product;
