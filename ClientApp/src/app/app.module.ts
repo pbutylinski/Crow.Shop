@@ -10,15 +10,17 @@ import { HomeComponent } from './home/home.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
-import { TranslationPipe } from './pipes/translation.pipe';
+import { TranslationPipe } from '../pipes/translation.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ProductComponent } from './product/product.component';
-import { ProductCardComponent } from './product/product-card/product-card.component';
+import { ProductCardComponent } from './shared/product-card/product-card.component';
+import { NavMenuAdminComponent } from './admin/nav-menu-admin/nav-menu-admin.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { ProductCardComponent } from './product/product-card/product-card.compon
     HomeComponent,
     ProductComponent,
     ProductCardComponent,
-    TranslationPipe
+    TranslationPipe,
+    NavMenuAdminComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,6 +42,7 @@ import { ProductCardComponent } from './product/product-card/product-card.compon
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
+    MatTabsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'product/:id', component: ProductComponent },

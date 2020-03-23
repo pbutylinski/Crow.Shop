@@ -1,0 +1,46 @@
+<div *ngIf="product">
+    <div class="row">
+        <div class="col-md-5">
+            <mat-card *ngIf="product.images.length">
+                <img mat-card-image *ngIf="currentImage" [src]="currentImage.fileName" />
+
+                <mat-card-footer class="photo-thumb-row">
+                    <div class="photo-thumb" *ngFor="let photo of product.images"
+                        (click)="currentImage = photo"
+                        [style.backgroundImage]="'url(' + photo.fileName + ')'">
+                    </div>
+                </mat-card-footer>
+            </mat-card>
+        </div>
+        <div class="col-md-7">
+            <mat-card>
+                <mat-card-title>{{ product.translations | translation }}</mat-card-title>
+
+                <mat-card-content>Treść</mat-card-content>
+
+                <mat-card-actions>
+                    <a mat-raised-button color="primary">Add to cart</a>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="mb-5"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <mat-tab-group mat-align-tabs="center">
+                <mat-tab label="Product description">
+                    <ng-template matTabContent>
+                        {{ product.translations | translation: "description" }}
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="Technical parameters">
+                    <ng-template matTabContent>
+                        The Second Content
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

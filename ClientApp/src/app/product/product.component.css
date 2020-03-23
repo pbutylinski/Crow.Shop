@@ -1,0 +1,13 @@
+.photo-thumb-row {
+    display: flex;
+}
+
+.photo-thumb {
+    background-size: cover;
+    cursor: pointer;
+    float: left;
+    width: calc(33% - 5px);
+    height: 70px;
+    margin: 0 0 5px 5px;
+    border-radius: 3px;
+}
