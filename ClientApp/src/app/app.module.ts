@@ -12,15 +12,23 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { TranslationPipe } from '../pipes/translation.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 import { ProductComponent } from './product/product.component';
 import { ProductCardComponent } from './shared/product-card/product-card.component';
 import { NavMenuAdminComponent } from './admin/nav-menu-admin/nav-menu-admin.component';
+import { PriceDifferencePipe } from 'src/pipes/price-difference.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +38,7 @@ import { NavMenuAdminComponent } from './admin/nav-menu-admin/nav-menu-admin.com
     ProductComponent,
     ProductCardComponent,
     TranslationPipe,
+    PriceDifferencePipe,
     NavMenuAdminComponent
   ],
   imports: [
@@ -43,6 +52,11 @@ import { NavMenuAdminComponent } from './admin/nav-menu-admin/nav-menu-admin.com
     MatToolbarModule,
     MatIconModule,
     MatTabsModule,
+    MatListModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatBadgeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'product/:id', component: ProductComponent },

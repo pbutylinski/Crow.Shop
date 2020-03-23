@@ -5,14 +5,14 @@ using System.Text.Json.Serialization;
 
 namespace Crow.Shop.Models
 {
-    public class ProductTranslation
+    public class ProductOptionTranslation
     {
         [JsonIgnore]
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [JsonIgnore]
-        public int ProductId { get; set; }
+        public Guid ProductOptionId { get; set; }
 
         [Required]
         public string Culture { get; set; }
@@ -20,9 +20,7 @@ namespace Crow.Shop.Models
         [Required]
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
         [JsonIgnore]
-        public virtual Product Product { get; set; }
+        public virtual ProductOption ProductOption { get; set; }
     }
 }

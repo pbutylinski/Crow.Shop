@@ -26,6 +26,26 @@ namespace Crow.Shop.Data
                 .WithOne(x => x.Product)
                 .HasForeignKey(x => x.ProductId);
 
+            builder.Entity<Product>()
+                .HasMany(x => x.OptionGroups)
+                .WithOne(x => x.Product)
+                .HasForeignKey(x => x.ProductId);
+
+            builder.Entity<ProductOptionGroup>()
+                .HasMany(x => x.Options)
+                .WithOne(x => x.Group)
+                .HasForeignKey(x => x.GroupId);
+
+            builder.Entity<ProductOptionGroup>()
+                .HasMany(x => x.Translations)
+                .WithOne(x => x.ProductOptionGroup)
+                .HasForeignKey(x => x.ProductOptionGroupId);
+
+            builder.Entity<ProductOption>()
+                .HasMany(x => x.Translations)
+                .WithOne(x => x.ProductOption)
+                .HasForeignKey(x => x.ProductOptionId);
+
             base.OnModelCreating(builder);
         }
 

@@ -11,3 +11,25 @@
     margin: 0 0 5px 5px;
     border-radius: 3px;
 }
+
+mat-button-toggle-group {
+    margin-left: 12px;
+}
+
+.price-difference {
+    font-weight: 500;
+    display: inline;
+    padding: 2px 5px;
+    border-radius: 100px;
+    background: rgba(0,0,0,0.2);
+}
+
+#product-price {
+    padding: 16px 0;
+    font-weight: 100;
+    margin: 0;
+}
+
+    #product-price span {
+        font-weight: 900;
+    }

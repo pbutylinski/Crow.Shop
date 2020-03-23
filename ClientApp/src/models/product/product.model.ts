@@ -3,4 +3,5 @@ interface Product {
     price: number;
     translations: ProductTranslation[];
     images: ProductImage[];
+    optionGroups: ProductOptionGroup[];
 }

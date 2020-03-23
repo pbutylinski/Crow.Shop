@@ -18,5 +18,7 @@ namespace Crow.Shop.Models
         public virtual ICollection<ProductTranslation> Translations { get; set; }
 
         public virtual ICollection<ProductImage> Images { get; set; }
+
+        public virtual ICollection<ProductOptionGroup> OptionGroups { get; set; }
     }
 }

@@ -1,5 +1,3 @@
-interface ProductTranslation {
-    culture: string;
-    name: string;
+interface ProductTranslation extends TranslationBase {
     description: string;
 }

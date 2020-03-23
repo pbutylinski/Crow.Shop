@@ -37,6 +37,11 @@ namespace Crow.Shop.Services
             return await this.context.Products
                 .Include(x => x.Translations)
                 .Include(x => x.Images)
+                .Include(x => x.OptionGroups)
+                    .ThenInclude(x => x.Options)
+                    .ThenInclude(x => x.Translations)
+                .Include(x => x.OptionGroups)
+                    .ThenInclude(x => x.Translations)
                 .Where(x => !x.IsDeleted)
                 .SingleOrDefaultAsync(x => x.Id == id);
         }

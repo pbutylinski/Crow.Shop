@@ -5,18 +5,43 @@
                 <img mat-card-image *ngIf="currentImage" [src]="currentImage.fileName" />
 
                 <mat-card-footer class="photo-thumb-row">
-                    <div class="photo-thumb" *ngFor="let photo of product.images"
-                        (click)="currentImage = photo"
+                    <div class="photo-thumb" *ngFor="let photo of product.images" (click)="currentImage = photo"
                         [style.backgroundImage]="'url(' + photo.fileName + ')'">
                     </div>
                 </mat-card-footer>
             </mat-card>
+
+            <div class="mb-2"></div>
         </div>
+
         <div class="col-md-7">
             <mat-card>
                 <mat-card-title>{{ product.translations | translation }}</mat-card-title>
 
-                <mat-card-content>Treść</mat-card-content>
+                <mat-divider></mat-divider>
+
+                <div class="mb-2"></div>
+
+                <h4 id="product-price">Price: <span>{{ product.price | number: '.2-2' }}</span></h4>
+
+                <mat-divider *ngIf="product.optionGroups.length"></mat-divider>
+                <div class="mb-2" *ngIf="product.optionGroups.length"></div>
+
+                <div *ngFor="let optionGroup of product.optionGroups" class="mb-2">
+                    {{ optionGroup.translations | translation }}:
+
+                    <mat-button-toggle-group>
+                        <mat-button-toggle *ngFor="let option of optionGroup.options" [value]="option.id">
+                            {{ option.translations | translation }}
+
+                            <span *ngIf="option.priceDifference" class="price-difference">
+                                {{ option.priceDifference | priceDifference }}
+                            </span>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+                <mat-divider></mat-divider>
 
                 <mat-card-actions>
                     <a mat-raised-button color="primary">Add to cart</a>

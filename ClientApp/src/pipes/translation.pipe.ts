@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'translation' })
 export class TranslationPipe implements PipeTransform {
-  transform(value: ProductTranslation[], display?: string): string {
+  transform(value: TranslationBase[], display?: string): string {
     const currentLocale = this.getUsersLocale('en-GB');
-    const empty: ProductTranslation = { culture: currentLocale, name: "[MISSING_TRANSLATION]", description: "" };
+    const empty: TranslationBase = { culture: currentLocale, name: "[MISSING_TRANSLATION]" };
     let displayValue = value.find(x => x.culture.startsWith(currentLocale));
 
     if (!displayValue) {

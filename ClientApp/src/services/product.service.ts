@@ -13,6 +13,9 @@ export class ProductService {
             .toPromise()
             .then(data => {
                 data.images = data.images.sort((a, b) => a.order - b.order);
+                data.optionGroups = data.optionGroups.sort((a, b) => a.order - b.order);
+                data.optionGroups.forEach(x => { x.options = x.options.sort((a, b) => a.order - b.order); });
+
                 return data;
             });
     }
